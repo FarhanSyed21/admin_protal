@@ -1,0 +1,69 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.card {
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 320px;
+}
+
+.icon {
+  width: 50px;
+  margin-bottom: 20px;
+}
+
+.title {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.message {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.otp-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.otp-input {
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  text-align: center;
+  margin: 0 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.resend-text {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.timer {
+  font-weight: bold;
+}
