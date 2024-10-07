@@ -90,11 +90,11 @@ const UserList = () => {
   return (
     <>
       <Container >
-        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '15px 0 10px 0'}}>
+        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px'}}>
 
-          <h1 style={{ margin: 0 }}>User List</h1>
+          <h1 className='font-semibold text-4xl underline font-serif'>User List</h1>
 
-          <FormControl style={{ minWidth: '250px' }}>
+          {/* <FormControl style={{ minWidth: '250px' }} >
             <InputLabel>User Type</InputLabel>
             <Select
               value={filter}
@@ -110,39 +110,50 @@ const UserList = () => {
               <MenuItem value="account_manager">Account Manager</MenuItem>
               <MenuItem value="kamai_admin">Kamai Admin</MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
+          <div class="flex flex-col py-0 font-serif">
+            <label for="manufacturer" class="text-lg font-medium text-stone-600">User Type</label>
+            <select id="manufacturer" class="mt-2 block w-full rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+              <option>Operations User</option>
+              <option>Operations Manager</option>
+              <option>Sales Manager</option>
+              <option>Sales User</option>
+              <option>Account Manager</option>
+              <option>Kamai Admin</option>
+            </select>
+          </div>
         </div>
 
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Profile</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
+        <TableContainer component={Paper} >
+          <Table className='bg-gray-900' >
+            <TableHead className='bg-gray-700 '>
+              <TableRow >
+                <TableCell style={{ color: "white", fontWeight: "bold", fontSize:"large" }}>Profile</TableCell>
+                <TableCell style={{ color: "white", fontWeight: "bold", fontSize:"large" }}>Name</TableCell>
+                <TableCell style={{ color: "white", fontWeight: "bold", fontSize:"large" }}>Email</TableCell>
                 {/* <TableCell>Location</TableCell> */}
-                <TableCell>Mobile Number</TableCell>
-                <TableCell align="center">Actions</TableCell>
+                <TableCell style={{ color: "white", fontWeight: "bold", fontSize:"large" }}>Mobile Number</TableCell>
+                <TableCell align="center" style={{ color: "white", fontWeight: "bold", fontSize:"large" }}>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {users.map((user, index) => (
                 <TableRow key={index}>
-                  <TableCell style={{height:''}}>
+                  <TableCell style={{color: "white"}}>
                     <Avatar alt={user.name} src={user.profilePic} />
                   </TableCell>
-                  <TableCell>{user.name}</TableCell>
-                  <TableCell>{user.email}</TableCell>
+                  <TableCell style={{color: "white"}}>{user.name}</TableCell>
+                  <TableCell style={{color: "white"}}>{user.email}</TableCell>
                   {/* <TableCell>{user.location}</TableCell> */}
-                  <TableCell>+91-{user.mobileNumber}</TableCell>
+                  <TableCell style={{color: "white"}}>+91-{user.mobileNumber}</TableCell>
                   <TableCell align="center">
-                    <IconButton aria-label="view" color="default" onClick={() => handleUserClick(user)}>
+                    <IconButton aria-label="view" color='primary' onClick={() => handleUserClick(user)}>
                       <VisibilityIcon />
                     </IconButton>
-                    <IconButton aria-label="edit" color="primary" onClick={() => handleEditClick(user)}>
+                    <IconButton aria-label="edit" sx={{ color: "white" }} onClick={() => handleEditClick(user)}>
                       <EditIcon />
                     </IconButton>
-                    <IconButton aria-label="delete" color="secondary" onClick={() => handleDeleteClick(user.email)}>
+                    <IconButton aria-label="delete" sx={{ color: "red" }} onClick={() => handleDeleteClick(user.email)}>
                       <DeleteIcon />
                     </IconButton>
                   </TableCell>

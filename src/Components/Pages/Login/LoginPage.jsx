@@ -41,6 +41,7 @@ const LoginPage = () => {
       });
       if (response.ok) {
         console.log('OTP sent successfully');
+        localStorage.setItem("Mobile number", mobileNumber)
         navigate('/otp', { state: { phoneNumber: mobileNumber } });
       }
     } catch (error) {
@@ -64,7 +65,7 @@ const LoginPage = () => {
           <h1>{isLogin ? 'Welcome to Kamai' : 'Join Kamai'}</h1>
           <p>{isLogin ? 'Sign into your account' : 'Create a new account'}</p>
         </div>
-        <form className="login-form" style={{width: '360px'}}>
+        <form className="login-form" >
           {!isLogin && (
             <input
               placeholder="Enter Name"

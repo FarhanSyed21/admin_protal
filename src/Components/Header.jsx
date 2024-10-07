@@ -1,202 +1,42 @@
 /* eslint-disable no-unused-vars */
-import { useState, useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import KamaiLogo from '../assets/logo/Kamai.png';
 
 
 const Header = () => {
 
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    navigate("/");
+  };
+
   return (
     <>
-      <header className="heater-transparent">
-        <div className={`jm-header-area header-sticky sticky`}>
-          <div className="container">
-            <div className="jm-header-main jm-header-padding ">
-              <div className="row align-items-center ">
-                <div className="col-xl-3 col-lg-3  col-7">
-                  <div className="jm-header-logo">
-                    <Link className="jm-logo" to="/">
-                      <img
-                        src="assets/img/logo/logo.png"
-                        alt="Image Not Fouund"
-                      />
-                    </Link>
-                  </div>
-                </div>
-                <div className="col-xl-6 col-lg-6 d-none d-lg-block">
-                  <div className="jm-header-main-menu text-center">
-                    <nav className="jm-mobile-menu" id="jm-mobile-menu">
-                      <ul>
-                        <li className="menu-has-children">
-                          <Link to="#">Home</Link>
-                          <ul className="sub-menu">
-                            <li>
-                              <Link to="#">Home 1</Link>
-                            </li>
-                            <li>
-                              <Link to="#">Home 2</Link>
-                            </li>
-                          </ul>
-                        </li>
-                        <li className="menu-has-children">
-                          <Link to="#">Jobs</Link>
-                          <ul
-                            className="sub-menu grid grid-cols-2"
-                            style={{ width: "420px" }}
-                          >
-                            <li>
-                              <Link to="#">Jobs Grid</Link>
-                            </li>
-                            <li>
-                              <Link to="#">Jobs List</Link>
-                            </li>
-                            <li>
-                              <Link to="#">Jobs by title</Link>
-                            </li>
-                            <li>
-                              <Link to="#">Jobs by city</Link>
-                            </li>
-                            <li>
-                              <Link to="#">
-                                Jobs by qualification
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="#">Fresher jobs</Link>
-                            </li>
-                            <li>
-                              <Link to="#">
-                                Jobs for disabled people
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="#">Job Details</Link>
-                            </li>
-                            <li>
-                              <Link to="#">
-                                Jobs By Category
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="#">Employer List</Link>
-                            </li>
-                            <li>
-                              <Link to="#">Employer Grid</Link>
-                            </li>
-                            <li>
-                              <Link to="#">
-                                Employer Details
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="#">Post a Job</Link>
-                            </li>
-                            <li>
-                              <Link to="#">Add Resume</Link>
-                            </li>
-                            <li>
-                              <Link to="#">Sample Videos</Link>
-                            </li>
-                          </ul>
-                        </li>
-                        <li className="menu-has-children">
-                          <Link to="#">Candidates</Link>
-                          <ul className="sub-menu">
-                            <li>
-                              <Link to="#">Candidates Grid</Link>
-                            </li>
-                            <li>
-                              <Link to="#">
-                                Candidates List
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="#">
-                                Candidates Details
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="#">
-                                Candidates Register
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="#">
-                                Video Description
-                              </Link>
-                            </li>
-                          </ul>
-                        </li>
-                        <li className="menu-has-children">
-                          <Link to="#">Pages</Link>
-                          <ul className="sub-menu">
-                            <li>
-                              <Link to="#">About</Link>
-                            </li>
-                            <li>
-                              <Link to="#">Services</Link>
-                            </li>
-                            <li>
-                              <Link to="#">
-                                Services Details
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="#">Contact</Link>
-                            </li>
-                            <li>
-                              <Link to="#">Subscription</Link>
-                            </li>
-                          </ul>
-                        </li>
-                        <li className="menu-has-children">
-                          <Link to="#">Blog</Link>
-                          <ul className="sub-menu">
-                            <li>
-                              <Link to="#">Blog Grid</Link>
-                            </li>
-                            <li>
-                              <Link to="#">Blog List</Link>
-                            </li>
-                            <li>
-                              <Link to="#">Blog Details</Link>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-                <div className="col-xl-3 col-lg-3 col-5">
-                  <div className="jm-header-right  text-end d-flex gap-4 align-items-center justify-content-end">
-                    <button
-                      className="jm-theme-btn-2 text-[#130160] whitespace-nowrap font-semibold d-none d-lg-block"
-                    >
-                      Employer Login
-                    </button>
-                    <button
-                      className="jm-theme-btn d-none d-lg-block"
-                      style={{
-                        padding: "8px 20px",
-                        borderRadius: "10px",
-                      }}
-                    >
-                      Candidate Login
-                    </button>
-                    <div
-                      className="jm-navbar-mobile-sign side-toggle d-lg-none d-inline-block"
-                      role="button"
-                    >
-                      <span className="dr-line-1"></span>
-                      <span className="dr-line-2"></span>
-                      <span className="dr-line-3"></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center justify-start rtl:justify-end">
+              <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                  <span class="sr-only">Open sidebar</span>
+                  <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+                  </svg>
+              </button>
+              <a href="#" class="flex ms-2 md:me-24">
+                <img src={KamaiLogo} class="h-12" alt="Kamai Logo" />
+              </a>
             </div>
+            <div class="flex items-center">
+                <div class="flex items-center ms-3">
+                  <p className="text-white font-semibold pr-2">Welcome,</p>
+                  <p className="text-white underline italic">+91-{localStorage.getItem("Mobile number")|| "No mobile number found"}</p>
+                </div>    
+              </div>
           </div>
         </div>
-      </header>
+      </nav>
     </>
   );
 };

@@ -70,6 +70,12 @@ const OtpPage = () => {
     }
   };
 
+  const handlekeyPress = (e) => {
+    if(e.key === "Enter"){
+      handleSubmitOtp();
+    }
+  }
+
   return (
     <div className="container">
       <div className="card">
@@ -88,6 +94,7 @@ const OtpPage = () => {
               type="text"
               value={value}
               onChange={(e) => handleOtpChange(e, index)}
+              onKeyDown={handlekeyPress}
               maxLength={1}
               className="otp-input"
               autoFocus={index === 0} 
