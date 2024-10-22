@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, Container, Dialog, DialogTitle, DialogContent, IconButton, TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Avatar, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { Typography, Container, Box, Dialog, DialogTitle, DialogContent, IconButton, TextField, Button, TableCell, TableRow, Avatar } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -88,11 +88,12 @@ const UserList = () => {
   };
 
   return (
-    <>
-      <Container >
-        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px'}}>
 
-          <h1 className='font-semibold text-4xl underline font-serif'>User List</h1>
+    <>
+      <Container className="p-0">
+        <div className="flex justify-between items-center mb-5">
+
+          <h2 className="font-semibold text-2xl underline font-serif">User List</h2>
 
           {/* <FormControl style={{ minWidth: '250px' }} >
             <InputLabel>User Type</InputLabel>
@@ -112,7 +113,7 @@ const UserList = () => {
             </Select>
           </FormControl> */}
           <div class="flex flex-col py-0 font-serif">
-            <label for="manufacturer" class="text-lg font-medium text-stone-600">User Type</label>
+            <label for="manufacturer" class="text-lg font-medium text-gray-900">User Type</label>
             <select id="manufacturer" class="mt-2 block w-full rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
               <option>Operations User</option>
               <option>Operations Manager</option>
@@ -124,44 +125,86 @@ const UserList = () => {
           </div>
         </div>
 
-        <TableContainer component={Paper} >
-          <Table className='bg-gray-900' >
-            <TableHead className='bg-gray-700 '>
-              <TableRow >
-                <TableCell style={{ color: "white", fontWeight: "bold", fontSize:"large" }}>Profile</TableCell>
-                <TableCell style={{ color: "white", fontWeight: "bold", fontSize:"large" }}>Name</TableCell>
-                <TableCell style={{ color: "white", fontWeight: "bold", fontSize:"large" }}>Email</TableCell>
-                {/* <TableCell>Location</TableCell> */}
-                <TableCell style={{ color: "white", fontWeight: "bold", fontSize:"large" }}>Mobile Number</TableCell>
-                <TableCell align="center" style={{ color: "white", fontWeight: "bold", fontSize:"large" }}>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users.map((user, index) => (
-                <TableRow key={index}>
-                  <TableCell style={{color: "white"}}>
-                    <Avatar alt={user.name} src={user.profilePic} />
-                  </TableCell>
-                  <TableCell style={{color: "white"}}>{user.name}</TableCell>
-                  <TableCell style={{color: "white"}}>{user.email}</TableCell>
-                  {/* <TableCell>{user.location}</TableCell> */}
-                  <TableCell style={{color: "white"}}>+91-{user.mobileNumber}</TableCell>
-                  <TableCell align="center">
-                    <IconButton aria-label="view" color='primary' onClick={() => handleUserClick(user)}>
-                      <VisibilityIcon />
-                    </IconButton>
-                    <IconButton aria-label="edit" sx={{ color: "white" }} onClick={() => handleEditClick(user)}>
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton aria-label="delete" sx={{ color: "red" }} onClick={() => handleDeleteClick(user.email)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <div className="p-3 bg-slate-100 text-black rounded-lg">
+          <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table className="w-full h-full text-sm text-left table-fixed">
+              <thead className="text-xs uppercase bg-slate-100">
+                <tr>
+                  <th className="px-6 py-3">Employer Name</th>
+                  <th className="px-6 py-3">Name</th>
+                  <th className="px-6 py-3">Email</th>
+                  <th className="px-6 py-3">Mobile Number</th>
+                  <th className="px-6 py-3">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user, index) => (
+                  <TableRow key={index} className="border-b bg-slate-50 border-slate-300">
+                    <td className="px-6 py-4">
+                      <Avatar alt={user.name} src={user.profilePic} />
+                    </td>
+                    <TableCell className="px-6 py-4">{user.name}</TableCell>
+                    <TableCell className="px-6 py-4">{user.email}</TableCell>
+                    <TableCell className="px-6 py-4" >+91-{user.mobileNumber}</TableCell>
+                    <TableCell className="flex justify-start space-x-2">
+                      <IconButton aria-label="view" color='primary' onClick={() => handleUserClick(user)}>
+                        <VisibilityIcon />
+                      </IconButton>
+                      <IconButton aria-label="edit" sx={{ color: "black" }} onClick={() => handleEditClick(user)}>
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton aria-label="delete" sx={{ color: "red" }} onClick={() => handleDeleteClick(user.email)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* <TableContainer component={Paper} className="rounded-lg shadow-md">
+          <div className="p-3 bg-slate-100 text-black">
+            <div className="relative overflow-x-auto">
+              <Table className="w-full text-sm text-left table-fixed bg-orange-500">
+                <TableHead>
+                  <TableRow className="bg-slate-100">
+                    <TableCell style={{ color: "black", fontWeight: "bold", fontSize: "large" }}>Employer Name</TableCell>
+                    <TableCell style={{ color: "black", fontWeight: "bold", fontSize: "large" }}>Name</TableCell>
+                    <TableCell style={{ color: "black", fontWeight: "bold", fontSize: "large" }}>Email</TableCell>
+                    <TableCell style={{ color: "black", fontWeight: "bold", fontSize: "large" }}>Mobile Number</TableCell>
+                    <TableCell align="center" style={{ color: "black", fontWeight: "bold", fontSize: "large" }}>Actions</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {users.map((user, index) => (
+                    <TableRow key={index}>
+                      <TableCell style={{ color: "black" }}>
+                        <Avatar alt={user.name} src={user.profilePic} />
+                      </TableCell>
+                      <TableCell style={{ color: "black" }}>{user.name}</TableCell>
+                      <TableCell style={{ color: "black" }}>{user.email}</TableCell>
+                      <TableCell style={{ color: "black" }}>+91-{user.mobileNumber}</TableCell>
+                      <TableCell align="center">
+                        <IconButton aria-label="view" color='primary' onClick={() => handleUserClick(user)}>
+                          <VisibilityIcon />
+                        </IconButton>
+                        <IconButton aria-label="edit" sx={{ color: "black" }} onClick={() => handleEditClick(user)}>
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton aria-label="delete" sx={{ color: "red" }} onClick={() => handleDeleteClick(user.email)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
+        </TableContainer> */}
 
         {/* Popup Dialog */}
         <Dialog open={open} onClose={handleClose}>

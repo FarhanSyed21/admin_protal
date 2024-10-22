@@ -1,71 +1,85 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+/*eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react';
+import { json, useNavigate } from 'react-router-dom';
 import './Login.css';
 
 const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [mobileNumber, setMobileNumber] = useState('');
+  const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [authToken, setAuthToken] = useState('');
   const navigate = useNavigate();
-
-  const handleMobileChange = (e) => {
-    const inputValue = e.target.value;
-    if (inputValue === '' || /^[0-9\b]+$/.test(inputValue)) {
-      setMobileNumber(inputValue);
-    }
-  };
 
   const handleToggleForm = () => {
     setIsLogin(!isLogin);
-    setMobileNumber('');
+    setUsername('');
     setName('');
     setEmail('');
     setPassword('');
   };
 
   const handleLogin = async (e) => {
+    console.log(username);
+    console.log(password);
     e.preventDefault();
+
+    const loginData = { username};
+    localStorage.setItem("user_name" , loginData.username);
+
     try {
-      const response = await fetch(`http://k8s-developm-ingressa-1c98111f81-862727769.ap-south-1.elb.amazonaws.com/employer/otp`, {
+      const response = await fetch(`http://k8s-developm-ingressa-1c98111f81-862727769.ap-south-1.elb.amazonaws.com/admin/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: 'Basic ZGVtby1jbGllbnQ6ZGVtby1zZWNyZXQ=',
+          Authorization: "Basic ZGVtby1jbGllbnQ6ZGVtby1zZWNyZXQ=", 
         },
         body: JSON.stringify({
-          loginType: 'Mobile',
-          username: `+91${mobileNumber}`,
+          username: username,
+          grant_type: "grant_password", 
+          password: password,
         }),
       });
+
+      const data = await response.json();
+
+      console.log(data.access_token);
+      setAuthToken(data.access_token);
+      localStorage.setItem('authToken', data.access_token);
+
       if (response.ok) {
-        console.log('OTP sent successfully');
-        localStorage.setItem("Mobile number", mobileNumber)
-        navigate('/otp', { state: { phoneNumber: mobileNumber } });
+    
+        navigate('/home', {
+          state: { authToken: data.access_token, defaultOption: 'organization' },
+        });
+      } else {
+        alert('Login failed. Please check your username and password.');
       }
     } catch (error) {
-      console.log('error');
+      console.log('Login failed. Try again.', error);
     }
   };
 
   const handleSignup = (e) => {
     e.preventDefault();
-    const userData = { name, mobileNumber, email, password };
+    const userData = { name, username, email, password };
     localStorage.setItem('user', JSON.stringify(userData));
+
 
     navigate('/home', { state: { defaultOption: 'userList' } });
   };
 
   return (
-    <div className="login-page" style={{}}>
+    <div className="login-page">
       <div className="login-left">
-        <img src={require('../../../assets/logo/Kamai.png')} alt="Kamai Logo" className="login-logo" style={{width: '90px'}}/>
+      <img src={require('../../../assets/logo/Kamai.png')} alt="Kamai Logo" className="login-logo" style={{width: '90px'}}/>
+
         <div className="login-header">
-          <h1>{isLogin ? 'Welcome to Kamai' : 'Join Kamai'}</h1>
+          <h1>{isLogin ? 'Welcome to kamai' : 'Join kamai'}</h1>
           <p>{isLogin ? 'Sign into your account' : 'Create a new account'}</p>
         </div>
-        <form className="login-form" >
+        <form className="login-form">
           {!isLogin && (
             <input
               placeholder="Enter Name"
@@ -74,13 +88,22 @@ const LoginPage = () => {
               required
             />
           )}
+
           <input
-            placeholder="Enter Mobile Number"
-            value={mobileNumber}
-            onChange={handleMobileChange}
+            placeholder="Enter Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
-            maxLength={10}
           />
+
+          <input
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            type="password"
+          />
+
           {!isLogin && (
             <>
               <input
@@ -90,15 +113,9 @@ const LoginPage = () => {
                 required
                 type="email"
               />
-              <input
-                placeholder="Enter Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                type="password"
-              />
             </>
           )}
+
           <button
             type="submit"
             className="login-button"
@@ -109,11 +126,17 @@ const LoginPage = () => {
           <span>
             {isLogin ? (
               <>
-                Not a member? <a href="#" onClick={handleToggleForm}>Sign Up Now</a>
+                Not a member?{' '}
+                <a href="#" onClick={handleToggleForm}>
+                  Sign Up Now
+                </a>
               </>
             ) : (
               <>
-                Already a member? <a href="#" onClick={handleToggleForm}>Log In</a>
+                Already a member?{' '}
+                <a href="#" onClick={handleToggleForm}>
+                  Log In
+                </a>
               </>
             )}
           </span>
@@ -124,5 +147,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
 
